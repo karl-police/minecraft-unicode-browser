@@ -13,12 +13,15 @@
             <div style="background: url(assets/textures/font/unicode_page_00.png); image-rendering: pixelated; width: 64px; height: 64px; background-size: 1024px; background-position: -64px 0px;">
         </div>
         <br>
-        <div><img id="testing_1" crossorigin style="image-rendering: pixelated; width: 64px; height: 64px;"></div>
+        <div><img id="testing_1" style="image-rendering: pixelated; width: 64px; height: 64px;"></div>
         <div id="test_2"></div>
-        <script>
-            imagesheet_handler_Module.test_cropImg("assets/textures/font/unicode_page_00.png", 16,16, 16, 0).then(function(result) {
-                document.getElementById("testing_1").setAttribute("src", result)
-            })
-        </script>
+
+<script>
+    var _baseURL = "" // For debugging
+
+    imagesheet_handler_Module.test_cropImg(_baseURL + "assets/textures/font/unicode_page_00.png", 16,16, 16, 0).then(function(result) {
+        document.getElementById("testing_1").setAttribute("src", result)
+    })
+</script>
     </body>
 </html>
