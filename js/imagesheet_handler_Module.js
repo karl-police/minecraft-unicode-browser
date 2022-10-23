@@ -2,6 +2,8 @@
 const imagesheet_handler_Module = new function() {
 //
 
+const __DEBUG = false; // For debugging locally
+
 
 function test_cropImg(imgURI, width, height, posX, posY) {
     return new Promise(function(resolve, rejected) {
@@ -9,6 +11,10 @@ function test_cropImg(imgURI, width, height, posX, posY) {
         var img_src = new Image()
 
         img_src.src = imgURI;
+        
+        if (__DEBUG) {
+            img_src.crossOrigin = "anonymous"
+        }
 
         img_src.onload = function() {
             transform_canvas.width = width
