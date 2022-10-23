@@ -6,32 +6,34 @@
         <link rel="stylesheet" href="stylesheet.css" type="text/css">
 
         <script src="js/imagesheet_handler_Module.js"></script>
+        <script src="js/unicodeData_Module.js"></script>
     </head>
     <body>
         <header>
             <div id="header_container"><span id="page_header_title"><b>Minecraft Unicode Browser</b></span></div>
         </header>
-
-        <div>
-            <!-- Default 16px characters and sheet 256px -->
-        </div>
-        <div>
-            <div id="test_2">
-                <img id="testing_1" style="image-rendering: pixelated; width: 64px; height: 64px;">
+        <form>
+            <div id="form_container">
+                <div id="searchbar_container">
+                    <input id="unicode-searchinput" name="search" type="text" placeholder="Search">
+                    <input type="submit" value="Search">
+                </div>
+                <div id="search_filter_container">
+                    <input type="reset" value="Clear">
+                </div>
+            </div>
+         </form>
+        <div id="listing-container">
+            <div class="item-container _nodesc">
+                <div class="item-image">
+                    <img id="testing_1" style="image-rendering: pixelated; width: 64px; height: 64px;">
+                </div>
+                <div class="item-desc-container">
+                    <div class="item-desc-unicode"><span>U+0002</span></div>
+                    <div class="item-desc-name">Start of Text</div>
+                </div>
             </div>
         </div>
-<script>
-    var __DEBUG = false; // For debugging
-
-    var _baseURL = ""
-
-    if (__DEBUG) {
-        _baseURL = "https://karl-police.github.io/minecraft-unicode-browser/"
-    }
-
-    imagesheet_handler_Module.cropImage(_baseURL + "assets/textures/font/unicode_page_00.png", 16,16, 16, 0).then(function(result) {
-        document.getElementById("testing_1").setAttribute("src", result)
-    })
-</script>
+<script src="main.js"></script>
     </body>
 </html>
