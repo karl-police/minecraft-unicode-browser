@@ -190,6 +190,3 @@ function setupUnicodePageImages(displayType) {
 
 setupUnicodePageImages("CSS")
 //setupUnicodePageCSSImage("00")
-
-
-parselines
