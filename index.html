@@ -17,9 +17,15 @@
         <div id="test_2"></div>
 
 <script>
-    var _baseURL = "" // For debugging
+    var __DEBUG = false; // For debugging
 
-    imagesheet_handler_Module.test_cropImg(_baseURL + "assets/textures/font/unicode_page_00.png", 16,16, 16, 0).then(function(result) {
+    var _baseURL = ""
+
+    if (__DEBUG) {
+        _baseURL = "https://karl-police.github.io/minecraft-unicode-browser/"
+    }
+
+    imagesheet_handler_Module.cropImage(_baseURL + "assets/textures/font/unicode_page_00.png", 16,16, 16, 0).then(function(result) {
         document.getElementById("testing_1").setAttribute("src", result)
     })
 </script>
