@@ -5,12 +5,20 @@
 
         <link rel="stylesheet" href="stylesheet.css" type="text/css">
 
-        <script src=""></script>
+        <script src="js/imagesheet_handler_Module.js"></script>
     </head>
     <body>
         <div>
             <!-- Default 16px characters and sheet 256px -->
-            <img style="background: url(assets/textures/font/unicode_page_00.png); image-rendering: pixelated; width: 64px; height: 64px; background-size: 1024px; background-position: -64px 0px;">
+            <div style="background: url(assets/textures/font/unicode_page_00.png); image-rendering: pixelated; width: 64px; height: 64px; background-size: 1024px; background-position: -64px 0px;">
         </div>
+        <br>
+        <div><img id="testing_1" crossorigin style="image-rendering: pixelated; width: 64px; height: 64px;"></div>
+        <div id="test_2"></div>
+        <script>
+            imagesheet_handler_Module.test_cropImg("assets/textures/font/unicode_page_00.png", 16,16, 16, 0).then(function(result) {
+                document.getElementById("testing_1").setAttribute("src", result)
+            })
+        </script>
     </body>
 </html>
