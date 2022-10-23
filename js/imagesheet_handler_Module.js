@@ -86,8 +86,8 @@ function regularImageSheet_extract(options) {
 
             var canvas2D = transform_canvas.getContext("2d")
 
-            for (col_i=1; col_i <= columnAmount; col_i++) {
-                for (row_i=1; row_i <= rowAmount; row_i++) {
+            for (let col_i=1; col_i <= columnAmount; col_i++) {
+                for (let row_i=1; row_i <= rowAmount; row_i++) {
                     canvas2D.drawImage(img_src, ((rowPosCounter - 1) * offsetX), ((columnPosCounter - 1) * offsetY), cropWidth, cropHeight, 0, 0, cropWidth, cropHeight)
                     
                     var dataURL = transform_canvas.toDataURL("image/png").toString()
@@ -117,9 +117,65 @@ function regularImageSheet_extract(options) {
 }
 
 
+// A function that will use the image sheet to display single images with CSS
+function regularImageSheet_extractCSS(options) {
+    if (!options) {
+        options = {}
+    }
+
+    sheetImgSrc = options.sheetImgSrc
+    sheetWidth = options.sheetWidth
+    sheetHeight = options.sheetHeight
+
+    cropWidth = options.cropWidth
+    cropHeight = options.cropHeight
+
+    offsetX = options.offsetX
+    offsetY = options.offsetY
+
+    rowAmount = options.rowAmount
+    columnAmount = options.columnAmount
+
+    charToStopAt = options.charToStopAt
+
+
+    let totalPosCounter = 1;
+    let rowPosCounter = 1;
+    let columnPosCounter = 1;
+
+    let collectionTable = {};
+    collectionTable.images = {};
+
+    for (let col_i=1; col_i <= columnAmount; col_i++) {
+        for (let row_i=1; row_i <= rowAmount; row_i++) {
+
+            Object.assign(collectionTable.images, {[totalPosCounter]: {
+                posX: -((rowPosCounter - 1) * offsetX),
+                posY: -((columnPosCounter - 1) * offsetY),
+            }})
+
+            // break if charToStopAt was reached
+            if (totalPosCounter == charToStopAt) {
+                break
+            }
+
+            rowPosCounter += 1;
+            totalPosCounter += 1;
+        }
+
+        columnPosCounter += 1;
+        rowPosCounter = 1; // Reset
+    }
+
+    return collectionTable
+}
+
+
 // export for module
 this.cropImage = cropImage
 this.regularImageSheet_extract = regularImageSheet_extract
+
+this.regularImageSheet_extractCSS = regularImageSheet_extractCSS
 
 
 } // end of module
