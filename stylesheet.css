@@ -6,8 +6,19 @@
 :root {
     --main-bg-color: rgb(20, 20, 20);
     --main-text-color: white;
+
+    --input-text-bg: rgba(16,16,16,0.5);
+
+    --result-item-container_bg: var(var(--main-bg-color));
+    --result-item-container_bg-hovered: rgb(25,25,25);
+    --result-item-container_bg-click: rgb(22,22,22);
+    --result-item-container_border-color: rgb(65,65,65);
+    --result-item-container_border-color-hovered: rgb(145,145,155);
+    --result-item-container_border-color-click: rgb(125,125,125);
 }
 
+
+/** Main Style **/
 
 body {
     background-color: var(--main-bg-color);
@@ -17,10 +28,95 @@ body {
 
 #header_container {
     text-align: center;
-    box-shadow: 0px 0px 8px 2px black;
+    box-shadow: 0px -2px 15px 0px black;
     padding: 8px;
+    margin-bottom: 15px;
 }
 
 #page_header_title {
     font-size: 24px;
+}
+
+
+
+#form_container {
+    display: block;
+    text-align: center;
+    padding: 5px;
+}
+
+#searchbar_container {
+    display: block;
+    text-align: center;
+    padding: 5px;
+}
+
+/* Form Input */
+
+input[type="text"] {
+    background-color: var(--input-text-bg);
+    border-style: none;
+    padding: 2px 5px;
+    color: inherit;
+}
+
+
+/* Results Container */
+
+#listing-container {
+    display: flex;
+    padding: 5px 15px;
+}
+
+/* Container for the results */
+.item-container {
+    display: inline;
+    border-width: 2px;
+    border-radius: 5px;
+    border-style: solid;
+    border-color: var(--result-item-container_border-color);
+    background-color: var(--main-bg-color);
+
+    text-align: center;
+}
+
+.item-container._nodesc:hover, .item-container._nodesc:focus {
+    cursor: pointer;
+    background-color: var(--result-item-container_bg-hovered);
+    border-color: var(--result-item-container_border-color-hovered);
+    outline: none;
+}
+
+.item-container._nodesc:active {
+    cursor: pointer;
+    background-color: var(--result-item-container_bg-click);
+    border-color: var(--result-item-container_border-color-click);
+}
+
+.item-container .item-image:hover {
+    cursor: pointer;
+}
+
+
+.item-container .item-image {
+    padding: 10px 10px 5px 10px;
+}
+
+.item-container .item-desc-container {
+    padding: 5px;
+    background-color: rgba(0,0,0,0.1);
+}
+
+.item-container .item-desc-container .item-desc-unicode {
+    font-size: 14px;
+    font-family: "Consolas", "Courier new", "monospace";
+}
+.item-container .item-desc-container .item-desc-unicode span {
+    padding: 0px 2px;
+    background-color: rgba(0,0,0,0.2);
+}
+
+.item-container .item-desc-container .item-desc-name {
+    font-size: 16px;
+    font-family: monospace;
 }
