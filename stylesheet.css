@@ -66,8 +66,8 @@ input[type="text"] {
 #listing-container {
     display: flex;
     padding: 5px 15px;
-    align-items: flex-start;
     flex-wrap: wrap;
+    justify-content: center;
 }
 
 #listing-container .item-container {
@@ -106,7 +106,7 @@ input[type="text"] {
 
 
 .item-container .item {
-    flex: 1;
+    text-align: center;
 }
 
 .item-container._nodesc .item .item-desc-container {
