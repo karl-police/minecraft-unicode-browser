@@ -36,14 +36,29 @@ function createUnicodeItemElement(options) {
     let itemImageContainer = document.createElement("div")
     itemImageContainer.className = "item-image"
 
-    let itemImage = document.createElement("img")
+    let itemImage
+    if (options.type != "CSS") {
+        itemImage = document.createElement("img")
+    } else if (options.type == "CSS") {
+        itemImage = document.createElement("div")
+    }
     itemImage.className = "item-img"
-    itemImage.src = options.imageSrc
+
+    if (options.type != "CSS") {
+        itemImage.src = options.imageSrc
+    } else if (options.type == "CSS") {
+        itemImage.style.background = `url(${options.imageSrc})`
+        itemImage.style.backgroundSize = "1024px" // for zoom
+        itemImage.style.backgroundPositionX = (options.posX * 4) + "px"
+        itemImage.style.backgroundPositionY = (options.posY * 4) + "px"
+        itemImage.style.display = "inline-block"
+    }
+    
     itemImage.style.imageRendering = "pixelated"
     itemImage.style.width = "64px"
     itemImage.style.height = "64px"
-    itemImageContainer.append(itemImage) // img
 
+    itemImageContainer.append(itemImage) // img
     itemInnerContainer.append(itemImageContainer) // image container
 
     let itemDescContainer = document.createElement("div")
@@ -78,7 +93,7 @@ function createUnicodeItemElement(options) {
 
 
 // Function to set up one unicode_page_%s image
-function setupUnicodePageImage(unicodePage_index) {
+function setupUnicodePageImage(unicodePage_index, displayType) {
     imagesheet_handler_Module.regularImageSheet_extract({
         sheetImgSrc: _baseURL + "assets/textures/font/unicode_page_" + unicodePage_index + ".png",
         sheetWidth: 256,
@@ -93,7 +108,7 @@ function setupUnicodePageImage(unicodePage_index) {
         rowAmount: 16,
         columnAmount: 16,
     }).then(function(result) {
-        for (i=1; i < Object.keys(result.images).length + 1; i++) {
+        for (let i=1; i < Object.keys(result.images).length + 1; i++) {
             createUnicodeItemElement({
                 imageSrc: result.images[i]
             })
@@ -102,17 +117,9 @@ function setupUnicodePageImage(unicodePage_index) {
 }
 
 
-function UrlExists(url)
-{
-    var http = new XMLHttpRequest();
-    http.open('HEAD', url, false);
-    http.send();
-    return http.status!=404;
-}
-
 // Function to create unicode_page_%s images
-function setupUnicodePageImages() {
-    for (i=0; i <= 255; i++) {
+function setupUnicodePageImages(displayType) {
+    for (let i=0; i <= 255; i++) {
         let hexValue = (i).toString("16")
 
         if (i < 16) {
@@ -127,10 +134,44 @@ function setupUnicodePageImages() {
             continue
         }
 
-        setupUnicodePageImage(hexValue)
+        if (displayType != "CSS") {
+            setupUnicodePageImage(hexValue)
+        } else if (displayType == "CSS") {
+            setupUnicodePageCSSImage(hexValue)
+        }
     }
 }
 
 
-setupUnicodePageImages()
+// Function to set up one unicode_page_%s image wtih CSS
+function setupUnicodePageCSSImage(unicodePage_index) {
+    var result = imagesheet_handler_Module.regularImageSheet_extractCSS({
+        sheetImgSrc: _baseURL + "assets/textures/font/unicode_page_" + unicodePage_index + ".png",
+        sheetWidth: 256,
+        sheetHeight: 256,
+    
+        cropWidth: 16,
+        cropHeight: 16,
+    
+        offsetX: 16,
+        offsetY: 16,
+    
+        rowAmount: 16,
+        columnAmount: 16,
+    })
+    
+    for (let i=1; i < Object.keys(result.images).length + 1; i++) {
+        createUnicodeItemElement({
+            type: "CSS",
+            imageSrc: "assets/textures/font/unicode_page_" + unicodePage_index + ".png",
+            posX: result.images[i].posX,
+            posY: result.images[i].posY,
+        })
+    }
+}
+
+//setupUnicodePageImages()
 //setupUnicodePageImage("00")
+
+setupUnicodePageImages("CSS")
+//setupUnicodePageCSSImage("00")
