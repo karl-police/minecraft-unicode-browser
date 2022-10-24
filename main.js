@@ -199,14 +199,14 @@ function setupNonlatinEUPage() {
         new_nonlatinEUChars_array = new_nonlatinEUChars_array.concat(nonlatinEUChars[i].split(""))
     }
 
-    for (let i=0; i < new_nonlatinEUChars_array.length; i++) {
+    /*for (let i=0; i < new_nonlatinEUChars_array.length; i++) {
         var unicodeID_value = new_nonlatinEUChars_array[i].charCodeAt().toString("16").toUpperCase()
         unicodeID_value = ("0000" + unicodeID_value).slice(-4)
 
         if (unicodeID_value == "D800") {
             new_nonlatinEUChars_array.splice(new_nonlatinEUChars_array.indexOf(new_nonlatinEUChars_array[i]), 1)
         }
-    }
+    }*/
 
     var result = imagesheet_handler_Module.regularImageSheet_extractCSS({
         sheetImgSrc: _baseURL + "assets/textures/font/nonlatin_european.png",
@@ -273,5 +273,5 @@ html_btnBrowseAll.addEventListener("click", browseUnicode_AllUnicodePage)
 //setupUnicodePageImages()
 //setupUnicodePageImage("00")
 
-setupUnicodePageImages("CSS")
-//setupUnicodePageCSSImage("00")
+//setupUnicodePageImages("CSS")
+setupUnicodePageCSSImage("00")
