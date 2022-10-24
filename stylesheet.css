@@ -9,6 +9,12 @@
 
     --input-text-bg: rgba(16,16,16,0.5);
 
+    --button-bg: #242424;
+    --button-bg-hovered: #2c2c2c;
+    --button-bg-click: #202020;
+    --button-border-color: #434343;
+    --button-font-color: white;
+
     --result-item-container_bg: var(var(--main-bg-color));
     --result-item-container_bg-hovered: rgb(25,25,25);
     --result-item-container_bg-click: rgb(22,22,22);
@@ -58,6 +64,32 @@ input[type="text"] {
     border-style: none;
     padding: 2px 5px;
     color: inherit;
+}
+
+input[type="submit"] {
+    background: var(--button-bg);
+    border: 1px solid var(--button-border-color);
+    color: var(--button-font-color);
+}
+
+input[type="reset"] {
+    background: var(--button-bg);
+    border: 1px solid var(--button-border-color);
+    color: var(--button-font-color);
+}
+
+input[type="button"] {
+    background: var(--button-bg);
+    border: 1px solid var(--button-border-color);
+    color: var(--button-font-color);
+}
+
+input[type="submit"]:hover, input[type="reset"]:hover, input[type="button"]:hover {
+    background: var(--button-bg-hovered);
+}
+
+input[type="submit"]:active, input[type="reset"]:active, input[type="button"]:active {
+    background: var(--button-bg-click);
 }
 
 .form-small-side-btn {
