@@ -107,6 +107,8 @@ input[type="text"] {
 
 .item-container .item {
     text-align: center;
+    display: flex;
+    flex-direction: column;
 }
 
 .item-container._nodesc .item .item-desc-container {
@@ -125,6 +127,7 @@ input[type="text"] {
 .item-container .item .item-desc-container {
     padding: 5px;
     background-color: rgba(0,0,0,0.1);
+    height: 50%;
 }
 
 .item-container .item .item-desc-container .item-desc-unicode {
@@ -137,6 +140,8 @@ input[type="text"] {
 }
 
 .item-container .item .item-desc-container .item-desc-name {
-    font-size: 16px;
+    /*font-size: 16px;*/
+    font-size: small;
     font-family: monospace;
+    width: 80px;
 }
