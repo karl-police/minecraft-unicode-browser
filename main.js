@@ -191,6 +191,12 @@ function setupUnicodePageImages(displayType) {
 }
 
 
+// A function to clear the listing container.
+function clearListingContainer() {
+    html_itemListingElement.innerHTML = ""
+}
+
+
 //setupUnicodePageImages()
 //setupUnicodePageImage("00")
 
