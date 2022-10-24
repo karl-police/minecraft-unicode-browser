@@ -255,12 +255,19 @@ function clearListingContainer() {
 
 function browseUnicode_NonlatinEU() {
     clearListingContainer() // Clear the listing container.
-
     setupNonlatinEUPage()
+}
+
+function browseUnicode_AllUnicodePage() {
+    clearListingContainer()
+    setupUnicodePageImages("CSS")
 }
 
 var html_btnNonlatinEU = document.getElementById("btn-nonlatin-eu")
 html_btnNonlatinEU.addEventListener("click", browseUnicode_NonlatinEU)
+
+var html_btnBrowseAll= document.getElementById("btn-browse-all")
+html_btnBrowseAll.addEventListener("click", browseUnicode_AllUnicodePage)
 
 
 //setupUnicodePageImages()
