@@ -115,9 +115,12 @@ function setupUnicodePageImage(unicodePage_index, displayType) {
                 unicodeHexValue = "0" + unicodeHexValue
             }
 
+            let unicodeID_value = unicodePage_index.toUpperCase() + unicodeHexValue
+
             createUnicodeItemElement({
                 imageSrc: result.images[i],
-                unicodeID: unicodePage_index.toUpperCase() + unicodeHexValue,
+                unicodeID: unicodeID_value,
+                unicodeName: unicodeData_Module.getUnicodeDisplayName(unicodeID_value),
             })
         }
     })
@@ -148,12 +151,15 @@ function setupUnicodePageCSSImage(unicodePage_index) {
             unicodeHexValue = "0" + unicodeHexValue
         }
 
+        let unicodeID_value = unicodePage_index.toUpperCase() + unicodeHexValue
+
         createUnicodeItemElement({
             type: "CSS",
             imageSrc: "assets/textures/font/unicode_page_" + unicodePage_index + ".png",
             posX: result.images[i].posX,
             posY: result.images[i].posY,
-            unicodeID: unicodePage_index.toUpperCase() + unicodeHexValue
+            unicodeID: unicodePage_index.toUpperCase() + unicodeHexValue,
+            unicodeName: unicodeData_Module.getUnicodeDisplayName(unicodeID_value),
         })
     }
 }
