@@ -60,6 +60,10 @@ input[type="text"] {
     color: inherit;
 }
 
+.form-small-side-btn {
+    font-size: 12px;
+}
+
 
 /* Results Container */
 
