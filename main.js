@@ -111,7 +111,7 @@ function setupUnicodePageImage(unicodePage_index, displayType) {
         for (let i=1; i < Object.keys(result.images).length + 1; i++) {
             let unicodeHexValue = (i-1).toString("16").toUpperCase();
 
-            if (i < 16) {
+            if ((i-1) < 16) {
                 unicodeHexValue = "0" + unicodeHexValue
             }
 
@@ -147,7 +147,7 @@ function setupUnicodePageCSSImage(unicodePage_index) {
     for (let i=1; i < Object.keys(result.images).length + 1; i++) {
         let unicodeHexValue = (i-1).toString("16").toUpperCase();
 
-        if (i < 16) {
+        if ((i-1) < 16) {
             unicodeHexValue = "0" + unicodeHexValue
         }
 
