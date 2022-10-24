@@ -190,11 +190,77 @@ function setupUnicodePageImages(displayType) {
     }
 }
 
+// Sets up Nonlatin EU unicode chars
+function setupNonlatinEUPage() {
+    var nonlatinEUChars = minecraft_StoredData_UnicodeDefaultJSON.unicodeNonlatin_European.chars
+    var new_nonlatinEUChars_array = []
+
+    for (let i=0; i < nonlatinEUChars.length; i++) {
+        new_nonlatinEUChars_array = new_nonlatinEUChars_array.concat(nonlatinEUChars[i].split(""))
+    }
+
+    for (let i=0; i < new_nonlatinEUChars_array.length; i++) {
+        var unicodeID_value = new_nonlatinEUChars_array[i].charCodeAt().toString("16").toUpperCase()
+        unicodeID_value = ("0000" + unicodeID_value).slice(-4)
+
+        if (unicodeID_value == "D800") {
+            new_nonlatinEUChars_array.splice(new_nonlatinEUChars_array.indexOf(new_nonlatinEUChars_array[i]), 1)
+        }
+    }
+
+    var result = imagesheet_handler_Module.regularImageSheet_extractCSS({
+        sheetImgSrc: _baseURL + "assets/textures/font/nonlatin_european.png",
+        sheetWidth: 128,
+        sheetHeight: 500,
+    
+        cropWidth: 16,
+        cropHeight: 16,
+    
+        offsetX: 16,
+        offsetY: 16,
+    
+        rowAmount: 16,
+        columnAmount: 65,
+
+        //charToStopAt: 1028,
+    })
+
+    for (let i=1; i < Object.keys(result.images).length + 1; i++) {
+        let unicodeHexValue = (i-1).toString("16").toUpperCase();
+
+        if ((i-1) < 16) {
+            unicodeHexValue = "0" + unicodeHexValue
+        }
+
+        let unicodeID_value = new_nonlatinEUChars_array[i-1].charCodeAt().toString("16").toUpperCase()
+        unicodeID_value = ("0000" + unicodeID_value).slice(-4)
+
+        createUnicodeItemElement({
+            type: "CSS",
+            imageSrc: "assets/textures/font/nonlatin_european.png",
+            posX: result.images[i].posX,
+            posY: result.images[i].posY,
+            unicodeID: unicodeID_value,
+            unicodeName: unicodeData_Module.getUnicodeDisplayName(unicodeID_value),
+        })
+    }
+}
+
+
 
 // A function to clear the listing container.
 function clearListingContainer() {
     html_itemListingElement.innerHTML = ""
 }
+
+function browseUnicode_NonlatinEU() {
+    clearListingContainer() // Clear the listing container.
+
+    setupNonlatinEUPage()
+}
+
+var html_btnNonlatinEU = document.getElementById("btn-nonlatin-eu")
+html_btnNonlatinEU.addEventListener("click", browseUnicode_NonlatinEU)
 
 
 //setupUnicodePageImages()
