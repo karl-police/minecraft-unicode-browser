@@ -129,6 +129,7 @@ function setupUnicodePageImage(unicodePage_index, displayType) {
                 imageSrc: result.images[i],
                 unicodeID: unicodeID_value,
                 unicodeName: unicodeData_Module.getUnicodeDisplayName(unicodeID_value),
+                
                 zoomFactor: 4,
 
                 imageSheetConfig: {
@@ -177,6 +178,7 @@ function setupUnicodePageCSSImage(unicodePage_index) {
             posY: result.images[i].posY,
             unicodeID: unicodeID_value,
             unicodeName: unicodeData_Module.getUnicodeDisplayName(unicodeID_value),
+
             zoomFactor: 4,
 
             imageSheetConfig: {
