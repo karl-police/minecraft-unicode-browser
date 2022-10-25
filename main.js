@@ -260,8 +260,9 @@ function clearListingContainer() {
 }
 
 
+// Function to load website with parameters.
 function startLoadSite() {
-
+    setupUnicodePageCSSImage("00")
 }
 
 
@@ -286,4 +287,6 @@ html_btnAllUnicodePages.addEventListener("click", browseUnicode_AllUnicodePages)
 //setupUnicodePageImage("00")
 
 //setupUnicodePageImages("CSS")
-setupUnicodePageCSSImage("00")
+//setupUnicodePageCSSImage("00")
+
+startLoadSite()
