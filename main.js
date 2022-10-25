@@ -235,12 +235,6 @@ function setupNonlatinEUPage() {
     })
 
     for (let i=1; i < Object.keys(result.images).length + 1; i++) {
-        let unicodeHexValue = (i-1).toString("16").toUpperCase();
-
-        if ((i-1) < 16) {
-            unicodeHexValue = "0" + unicodeHexValue
-        }
-
         let unicodeID_value = new_nonlatinEUChars_array[i-1].codePointAt().toString("16").toUpperCase() // codePointAt
         unicodeID_value = ("0000" + unicodeID_value).slice(-4)
 
@@ -273,7 +267,7 @@ function browseUnicode_NonlatinEU() {
     setupNonlatinEUPage()
 }
 
-function browseUnicode_AllUnicodePage() {
+function browseUnicode_AllUnicodePages() {
     clearListingContainer()
     setupUnicodePageImages("CSS")
 }
@@ -281,8 +275,8 @@ function browseUnicode_AllUnicodePage() {
 var html_btnNonlatinEU = document.getElementById("btn-nonlatin-eu")
 html_btnNonlatinEU.addEventListener("click", browseUnicode_NonlatinEU)
 
-var html_btnBrowseAll= document.getElementById("btn-browse-all")
-html_btnBrowseAll.addEventListener("click", browseUnicode_AllUnicodePage)
+var html_btnAllUnicodePages= document.getElementById("btn-all-unicode_pages")
+html_btnAllUnicodePages.addEventListener("click", browseUnicode_AllUnicodePages)
 
 
 //setupUnicodePageImages()
