@@ -16,10 +16,17 @@
         </header>
         <form>
             <div id="form_container">
+                <div id="browse-buttons_container" style="text-align:right; margin-right: 32px">
+                    <input id="btn-browse-accented" class="form-small-side-btn" type="button" value="Accented">
+                        <input id="btn-browse-ascii" class="form-small-side-btn" type="button" value="Ascii">
+                        <input id="btn-nonlatin-eu" class="form-small-side-btn" type="button" value="Nonlatin European">
+                        <input id="btn-all-unicode_pages" class="form-small-side-btn" type="button" value="All Unicode Pages">
+                        <input id="btn-browse-all" class="form-small-side-btn" type="button" value="Browse All">
+                </div>
                 <div id="searchbar_container">
                     <input id="unicode-searchinput" name="search" type="text" placeholder="Search">
                     <input type="submit" value="Search">
-                    <div style="position:relative">
+                    <!--<div style="position:relative">
                         <div style="position:absolute; right:60px; bottom:0px">
                             <input id="btn-browse-accented" class="form-small-side-btn" type="button" value="Accented">
                             <input id="btn-browse-ascii" class="form-small-side-btn" type="button" value="Ascii">
@@ -27,7 +34,7 @@
                             <input id="btn-all-unicode_pages" class="form-small-side-btn" type="button" value="All Unicode Pages">
                             <input id="btn-browse-all" class="form-small-side-btn" type="button" value="Browse All">
                         </div>
-                    </div>
+                    </div>-->
                 </div>
                 <div id="search_filter_container">
                     <input type="reset" value="Clear">
