@@ -14,6 +14,10 @@ const html_itemListingElement = document.getElementById("listing-container")
 function createUnicodeItemElement(options) {
     let documentFragment = document.createDocumentFragment()
 
+    if (!options.zoomFactor) {
+        options.zoomFactor = 4
+    }
+
     /*<div class="item-container _nodesc">
         <div class="item">
             <div class="item-image">
@@ -49,14 +53,14 @@ function createUnicodeItemElement(options) {
     } else if (options.type == "CSS") {
         itemImage.style.background = `url(${options.imageSrc})`
         itemImage.style.backgroundSize = "1024px" // for zoom
-        itemImage.style.backgroundPositionX = (options.posX * 4) + "px"
-        itemImage.style.backgroundPositionY = (options.posY * 4) + "px"
+        itemImage.style.backgroundPositionX = (options.posX * options.zoomFactor) + "px"
+        itemImage.style.backgroundPositionY = (options.posY * options.zoomFactor) + "px"
         itemImage.style.display = "inline-block"
     }
     
     itemImage.style.imageRendering = "pixelated"
-    itemImage.style.width = "64px"
-    itemImage.style.height = "64px"
+    itemImage.style.width = (options.imageSheetConfig.cropWidth * options.zoomFactor) + "px"
+    itemImage.style.height = (options.imageSheetConfig.cropHeight * options.zoomFactor) + "px"
 
     itemImageContainer.append(itemImage) // img
     itemInnerContainer.append(itemImageContainer) // image container
@@ -160,6 +164,12 @@ function setupUnicodePageCSSImage(unicodePage_index) {
             posY: result.images[i].posY,
             unicodeID: unicodePage_index.toUpperCase() + unicodeHexValue,
             unicodeName: unicodeData_Module.getUnicodeDisplayName(unicodeID_value),
+            zoomFactor: 4,
+
+            imageSheetConfig: {
+                cropWidth: 16,
+                cropHeight: 16,
+            }
         })
     }
 }
@@ -253,6 +263,89 @@ function setupNonlatinEUPage() {
 }
 
 
+class unicodeCharacterSheet_Config {
+    /**
+     * 
+     * @param {unicodeCharacterSheet_Config} table 
+     */
+    constructor(table) {
+        Object.assign(this, table)
+    }
+
+    /**
+     * Collection of the unicode characters in an array.
+     */
+    characterArray = this.characterArray
+
+    /**
+     * imagesheet_handler_Module.imageSheet_options
+     */
+    imageSheetConfig
+}
+
+
+
+const unicodeSheet_Accented_Config = new unicodeCharacterSheet_Config({
+    characterArray: minecraft_StoredData_UnicodeDefaultJSON.unicodeAccented.chars,
+
+    imageSheetConfig: new imagesheet_handler_Module.imageSheet_options({
+        sheetImgSrc: _baseURL + "assets/textures/font/accented.png",
+        sheetWidth: 144,
+        sheetHeight: 900,
+        
+        cropWidth: 16,
+        cropHeight: 16,
+
+        offsetX: 16,
+        offsetY: 12,
+
+        rowAmount: 16,
+        columnAmount: 75,
+    })
+})
+
+const unicodeSheet_Ascii_Config = new unicodeCharacterSheet_Config({
+    characterArray: minecraft_StoredData_UnicodeDefaultJSON.unicodeAscii.chars,
+
+    imageSheetConfig: new imagesheet_handler_Module.imageSheet_options({
+        sheetImgSrc: _baseURL + "assets/textures/font/ascii.png",
+        sheetWidth: 128,
+        sheetHeight: 128,
+        
+        cropWidth: 16,
+        cropHeight: 16,
+
+        offsetX: 16,
+        offsetY: 16,
+
+        rowAmount: 16,
+        columnAmount: 16, 
+    })
+})
+
+
+const unicodeSheet_NonlatinEU_Config = new unicodeCharacterSheet_Config({
+    characterArray: minecraft_StoredData_UnicodeDefaultJSON.unicodeNonlatin_European.chars,
+
+    imageSheetConfig: new imagesheet_handler_Module.imageSheet_options({
+        sheetImgSrc: _baseURL + "assets/textures/font/nonlatin_european.png",
+        sheetWidth: 128,
+        sheetHeight: 500,
+        
+        cropWidth: 16,
+        cropHeight: 16,
+
+        offsetX: 16,
+        offsetY: 16,
+
+        rowAmount: 16,
+        columnAmount: 65, 
+
+        //charToStopAt: 1028,
+    })
+})
+
+
 // Sets up a Char JSON page
 function setupCharJSONPage_CSS(options) {
     let characterArray = options.characterArray
@@ -283,22 +376,7 @@ function setupCharJSONPage_CSS(options) {
 
         charToStopAt: options.charToStopAt,*/
 
-    var result = imagesheet_handler_Module.regularImageSheet_extractCSS({
-        sheetImgSrc: options.sheetImageSrc,
-        sheetWidth: options.sheetWidth,
-        sheetHeight: options.sheetHeight,
-    
-        cropWidth: options.cropWidth,
-        cropHeight: options.cropHeight,
-    
-        offsetX: options.offsetX,
-        offsetY: options.offsetY,
-    
-        rowAmount: options.rowAmount,
-        columnAmount: options.columnAmount,
-
-        charToStopAt: options.charToStopAt,
-    })
+    var result = imagesheet_handler_Module.regularImageSheet_extractCSS(options.imageSheetConfig)
 
     for (let i=1; i < Object.keys(result.images).length + 1; i++) {
         let unicodeID_value = new_charsArray[i-1].codePointAt().toString("16").toUpperCase() // codePointAt
@@ -309,11 +387,13 @@ function setupCharJSONPage_CSS(options) {
 
         createUnicodeItemElement({
             type: "CSS",
-            imageSrc: "assets/textures/font/nonlatin_european.png",
+            imageSrc: options.imageSheetConfig.sheetImgSrc,
             posX: result.images[i].posX,
             posY: result.images[i].posY,
             unicodeID: unicodeID_value,
             unicodeName: unicodeData_Module.getUnicodeDisplayName(unicodeID_value),
+
+            imageSheetConfig: options.imageSheetConfig,
         })
     }
 }
@@ -331,33 +411,32 @@ function startLoadSite() {
 }
 
 
-function browseUnicode_NonlatinEU() {
+function browseUnicode_Accented() {
     clearListingContainer() // Clear the listing container.
-    //setupNonlatinEUPage()
-    setupCharJSONPage_CSS({
-        characterArray: minecraft_StoredData_UnicodeDefaultJSON.unicodeNonlatin_European.chars,
-        
-        sheetImageSrc: _baseURL + "assets/textures/font/nonlatin_european.png",
-        sheetWidth: 128,
-        sheetHeight: 500,
-        
-        cropWidth: 16,
-        cropHeight: 16,
 
-        offsetX: 16,
-        offsetY: 16,
+    setupCharJSONPage_CSS(unicodeSheet_Accented_Config)
+}
 
-        rowAmount: 16,
-        columnAmount: 65, 
+function browseUnicode_Ascii() {
+    clearListingContainer()
+    setupCharJSONPage_CSS(unicodeSheet_Ascii_Config)
+}
 
-        //charToStopAt: 1028,
-    })
+function browseUnicode_NonlatinEU() {
+    clearListingContainer()
+    setupCharJSONPage_CSS(unicodeSheet_NonlatinEU_Config)
 }
 
 function browseUnicode_AllUnicodePages() {
     clearListingContainer()
     setupUnicodePageImages("CSS")
 }
+
+var html_btnNonlatinEU = document.getElementById("btn-browse-accented")
+html_btnNonlatinEU.addEventListener("click", browseUnicode_Accented)
+
+var html_btnNonlatinEU = document.getElementById("btn-browse-ascii")
+html_btnNonlatinEU.addEventListener("click", browseUnicode_Ascii)
 
 var html_btnNonlatinEU = document.getElementById("btn-nonlatin-eu")
 html_btnNonlatinEU.addEventListener("click", browseUnicode_NonlatinEU)
