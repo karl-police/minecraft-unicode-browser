@@ -385,6 +385,42 @@ const unicodeSheet_AsciiSGA_Config = new unicodeCharacterSheet_Config({
 
 
 // Sets up a Char JSON page
+function setupCharJSONPage(options) {
+    let characterArray = options.characterArray
+
+    var new_charsArray = []
+
+    for (let i=0; i < characterArray.length; i++) {
+        for (let char of characterArray[i]) {
+            if (char != "") {
+                new_charsArray.push(char)
+            }
+        }
+    }
+
+    imagesheet_handler_Module.regularImageSheet_extract(options.imageSheetConfig).then(function(result) {
+        for (let i=1; i < Object.keys(result.images).length + 1; i++) {
+            let unicodeID_value = new_charsArray[i-1].codePointAt().toString("16").toUpperCase() // codePointAt
+    
+            if (unicodeID_value.length <= 4) {
+                unicodeID_value = ("0000" + unicodeID_value).slice(-4)
+            }
+    
+            createUnicodeItemElement({
+                imageSrc: result.images[i],
+                unicodeID: unicodeID_value,
+                unicodeName: unicodeData_Module.getUnicodeDisplayName(unicodeID_value),
+    
+                zoomFactor: options.zoomFactor,
+    
+                imageSheetConfig: options.imageSheetConfig,
+            })
+        }
+    })
+}
+
+
+// Sets up a Char JSON page
 function setupCharJSONPage_CSS(options) {
     let characterArray = options.characterArray
 
