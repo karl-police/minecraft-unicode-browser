@@ -193,10 +193,19 @@ function setupUnicodePageImages(displayType) {
 // Sets up Nonlatin EU unicode chars
 function setupNonlatinEUPage() {
     var nonlatinEUChars = minecraft_StoredData_UnicodeDefaultJSON.unicodeNonlatin_European.chars
+    //var unprocessed_nonlatinEUChars_array = []
     var new_nonlatinEUChars_array = []
 
+    /*for (let i=0; i < nonlatinEUChars.length; i++) {
+        unprocessed_nonlatinEUChars_array = unprocessed_nonlatinEUChars_array.concat(nonlatinEUChars[i].split(""))
+    }*/
+
     for (let i=0; i < nonlatinEUChars.length; i++) {
-        new_nonlatinEUChars_array = new_nonlatinEUChars_array.concat(nonlatinEUChars[i].split(""))
+        for (let char of nonlatinEUChars[i]) {
+            if (char != "") {
+                new_nonlatinEUChars_array.push(char)
+            }
+        }
     }
 
     /*for (let i=0; i < new_nonlatinEUChars_array.length; i++) {
@@ -232,7 +241,7 @@ function setupNonlatinEUPage() {
             unicodeHexValue = "0" + unicodeHexValue
         }
 
-        let unicodeID_value = new_nonlatinEUChars_array[i-1].charCodeAt().toString("16").toUpperCase()
+        let unicodeID_value = new_nonlatinEUChars_array[i-1].codePointAt().toString("16").toUpperCase() // codePointAt
         unicodeID_value = ("0000" + unicodeID_value).slice(-4)
 
         createUnicodeItemElement({
