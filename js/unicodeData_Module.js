@@ -192,8 +192,6 @@ function createUnicodeEscapesMC(stringInput) {
         resultCollections[i] = extractedStringCollection // insert into array
     }
 
-    console.log(resultCollections)
-
     for (let i=0; i < resultCollections.length; i++) {
         let resultCollectionBlock = resultCollections[i]
         let preResult = ""
