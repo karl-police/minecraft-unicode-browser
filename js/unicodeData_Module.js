@@ -120,6 +120,64 @@ async function generateJSONTable() {
 
 
 
+
+//unicodeData_Module.createUnicodeEscapesMC()
+//this.createUnicodeEscapesMC = createUnicodeEscapesMC
+
+// Function to generate unicode escapes
+function createUnicodeEscapesMC(stringInput) {
+    var result = ""
+    var resultCollections = []
+    
+    var splittedStringCollections = stringInput.split("\n")
+
+    var stringCollections = []
+    stringCollections = splittedStringCollections
+
+    /*var stringSingleCollections = []
+
+    for (let i=0; i < splittedStringCollections.length; i++) {
+        stringSingleCollections = stringSingleCollections.concat(splittedStringCollections[i].split(""))
+    }
+
+    for (let i=0; i < stringSingleCollections.length; i++) {
+        stringCollections[i] = stringSingleCollections.splice(0, 16) // for offset
+    }*/
+
+    for (let i=0; i < stringCollections.length; i++) {
+        var extractedStringCollection = stringCollections[i].split("")
+        
+        for (let i_2=0; i_2 < extractedStringCollection.length; i_2++) {
+            let unicodeValue = extractedStringCollection[i_2].charCodeAt().toString("16")
+            let unicodeEscape = "\\u" + ("0000" + unicodeValue).slice(-4)
+
+            extractedStringCollection[i_2] = unicodeEscape
+        }
+
+        resultCollections[i] = extractedStringCollection // insert into array
+    }
+
+    for (let i=0; i < resultCollections.length; i++) {
+        let resultCollectionBlock = resultCollections[i]
+        let preResult = ""
+
+        preResult += "\""
+        for (let i_2=0; i_2 < resultCollectionBlock.length; i_2++) {
+            if ((i_2 + 1) != resultCollectionBlock.length) {
+                preResult += resultCollectionBlock[i_2]
+            } else {
+                preResult += resultCollectionBlock[i_2] + "\",\n"
+            }
+        }
+
+        result += preResult
+    }
+
+    return result
+}
+
+
+
 // unicodeData_StoredJSON is used, which is in a separate file and gets included before this one in the HTML file.
 /*
     structure is:
