@@ -84,9 +84,9 @@ async function generateJSONTable() {
     // This part will create a table out of it
     for (let i=0; i < Object.keys(UnfinishedSeparated_UnicodeData).length; i++) {
         // We don't need all of the Unicodes
-        if (unprocessed_UnicodeID == "10000") {
+        /*if (unprocessed_UnicodeID == "10000") {
             break
-        }
+        }*/
 
         // The first element, is the Unicode ID, that is going to be put as the main index.
         var currentArrayBlock = UnfinishedSeparated_UnicodeData[i][0]
