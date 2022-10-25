@@ -253,6 +253,71 @@ function setupNonlatinEUPage() {
 }
 
 
+// Sets up a Char JSON page
+function setupCharJSONPage_CSS(options) {
+    let characterArray = options.characterArray
+
+    var new_charsArray = []
+
+    for (let i=0; i < characterArray.length; i++) {
+        for (let char of characterArray[i]) {
+            if (char != "") {
+                new_charsArray.push(char)
+            }
+        }
+    }
+
+
+    /*  sheetImgSrc: options.sheetImageSrc,
+        sheetWidth: options.sheetWidth,
+        sheetHeight: options.sheetHeight,
+    
+        cropWidth: options.cropWidth,
+        cropHeight: options.cropHeight,
+    
+        offsetX: options.offsetX,
+        offsetY: options.offsetY,
+    
+        rowAmount: options.rowAmount,
+        columnAmount: options.columnAmount,
+
+        charToStopAt: options.charToStopAt,*/
+
+    var result = imagesheet_handler_Module.regularImageSheet_extractCSS({
+        sheetImgSrc: options.sheetImageSrc,
+        sheetWidth: options.sheetWidth,
+        sheetHeight: options.sheetHeight,
+    
+        cropWidth: options.cropWidth,
+        cropHeight: options.cropHeight,
+    
+        offsetX: options.offsetX,
+        offsetY: options.offsetY,
+    
+        rowAmount: options.rowAmount,
+        columnAmount: options.columnAmount,
+
+        charToStopAt: options.charToStopAt,
+    })
+
+    for (let i=1; i < Object.keys(result.images).length + 1; i++) {
+        let unicodeID_value = new_charsArray[i-1].codePointAt().toString("16").toUpperCase() // codePointAt
+
+        if (unicodeID_value.length <= 4) {
+            unicodeID_value = ("0000" + unicodeID_value).slice(-4)
+        }
+
+        createUnicodeItemElement({
+            type: "CSS",
+            imageSrc: "assets/textures/font/nonlatin_european.png",
+            posX: result.images[i].posX,
+            posY: result.images[i].posY,
+            unicodeID: unicodeID_value,
+            unicodeName: unicodeData_Module.getUnicodeDisplayName(unicodeID_value),
+        })
+    }
+}
+
 
 // A function to clear the listing container.
 function clearListingContainer() {
@@ -268,7 +333,25 @@ function startLoadSite() {
 
 function browseUnicode_NonlatinEU() {
     clearListingContainer() // Clear the listing container.
-    setupNonlatinEUPage()
+    //setupNonlatinEUPage()
+    setupCharJSONPage_CSS({
+        characterArray: minecraft_StoredData_UnicodeDefaultJSON.unicodeNonlatin_European.chars,
+        
+        sheetImageSrc: _baseURL + "assets/textures/font/nonlatin_european.png",
+        sheetWidth: 128,
+        sheetHeight: 500,
+        
+        cropWidth: 16,
+        cropHeight: 16,
+
+        offsetX: 16,
+        offsetY: 16,
+
+        rowAmount: 16,
+        columnAmount: 65, 
+
+        //charToStopAt: 1028,
+    })
 }
 
 function browseUnicode_AllUnicodePages() {
