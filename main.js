@@ -253,6 +253,12 @@ function clearListingContainer() {
     html_itemListingElement.innerHTML = ""
 }
 
+
+function startLoadSite() {
+
+}
+
+
 function browseUnicode_NonlatinEU() {
     clearListingContainer() // Clear the listing container.
     setupNonlatinEUPage()
