@@ -40,7 +40,40 @@ function cropImage(imgURI, width, height, posX, posY) {
 }
 
 
+class imageSheet_options {
+    /**
+     * 
+     * @param {imageSheet_options} table 
+     */
+    constructor(table) {
+        Object.assign(this, table)
+    }
+
+    /**
+     * Source of the image sheet.
+     */
+    sheetImgSrc
+
+    sheetWidth
+    sheetHeight
+
+    cropWidth
+    cropHeight
+
+    offsetX
+    offsetY
+
+    rowAmount
+    columnAmount
+
+    charToStopAt
+}
+
+
 // A function to generate separate images from an image sheet.
+/**
+ * @param {imageSheet_options} options A table to configure settings.
+ */
 function regularImageSheet_extract(options) {
     return new Promise(function(resolve, reject) {
         if (!options) {
@@ -118,6 +151,9 @@ function regularImageSheet_extract(options) {
 
 
 // A function that will use the image sheet to display single images with CSS
+/**
+ * @param {imageSheet_options} options A table to configure settings.
+ */
 function regularImageSheet_extractCSS(options) {
     if (!options) {
         options = {}
@@ -177,5 +213,6 @@ this.regularImageSheet_extract = regularImageSheet_extract
 
 this.regularImageSheet_extractCSS = regularImageSheet_extractCSS
 
+this.imageSheet_options = imageSheet_options
 
 } // end of module
