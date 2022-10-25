@@ -18,6 +18,10 @@ function createUnicodeItemElement(options) {
         options.zoomFactor = 4
     }
 
+    if (!options.imageSheetConfig) {
+        options.imageSheetConfig = {}
+    }
+
     /*<div class="item-container _nodesc">
         <div class="item">
             <div class="item-image">
@@ -52,7 +56,7 @@ function createUnicodeItemElement(options) {
         itemImage.src = options.imageSrc
     } else if (options.type == "CSS") {
         itemImage.style.background = `url(${options.imageSrc})`
-        itemImage.style.backgroundSize = "1024px" // for zoom
+        itemImage.style.backgroundSize = ((options.imageSheetConfig.sheetWidth * options.zoomFactor) + "px") + " " + ((options.imageSheetConfig.sheetHeight * options.zoomFactor) + "px") // for zoom
         itemImage.style.backgroundPositionX = (options.posX * options.zoomFactor) + "px"
         itemImage.style.backgroundPositionY = (options.posY * options.zoomFactor) + "px"
         itemImage.style.display = "inline-block"
@@ -127,6 +131,9 @@ function setupUnicodePageImage(unicodePage_index, displayType) {
                 unicodeName: unicodeData_Module.getUnicodeDisplayName(unicodeID_value),
 
                 imageSheetConfig: {
+                    sheetWidth: 256,
+                    sheetHeight: 256,
+
                     cropWidth: 16,
                     cropHeight: 16,
                 }
@@ -172,6 +179,9 @@ function setupUnicodePageCSSImage(unicodePage_index) {
             zoomFactor: 4,
 
             imageSheetConfig: {
+                sheetWidth: 256,
+                sheetHeight: 256,
+
                 cropWidth: 16,
                 cropHeight: 16,
             }
@@ -235,7 +245,7 @@ function setupNonlatinEUPage() {
     var result = imagesheet_handler_Module.regularImageSheet_extractCSS({
         sheetImgSrc: _baseURL + "assets/textures/font/nonlatin_european.png",
         sheetWidth: 128,
-        sheetHeight: 500,
+        sheetHeight: 520,
     
         cropWidth: 16,
         cropHeight: 16,
@@ -292,16 +302,17 @@ class unicodeCharacterSheet_Config {
 
 const unicodeSheet_Accented_Config = new unicodeCharacterSheet_Config({
     characterArray: minecraft_StoredData_UnicodeDefaultJSON.unicodeAccented.chars,
+    zoomFactor: 5,
 
     imageSheetConfig: new imagesheet_handler_Module.imageSheet_options({
         sheetImgSrc: _baseURL + "assets/textures/font/accented.png",
         sheetWidth: 144,
         sheetHeight: 900,
         
-        cropWidth: 16,
-        cropHeight: 16,
+        cropWidth: 9,
+        cropHeight: 12,
 
-        offsetX: 16,
+        offsetX: 9,
         offsetY: 12,
 
         rowAmount: 16,
@@ -311,17 +322,18 @@ const unicodeSheet_Accented_Config = new unicodeCharacterSheet_Config({
 
 const unicodeSheet_Ascii_Config = new unicodeCharacterSheet_Config({
     characterArray: minecraft_StoredData_UnicodeDefaultJSON.unicodeAscii.chars,
+    zoomFactor: 5,
 
     imageSheetConfig: new imagesheet_handler_Module.imageSheet_options({
         sheetImgSrc: _baseURL + "assets/textures/font/ascii.png",
         sheetWidth: 128,
         sheetHeight: 128,
         
-        cropWidth: 16,
-        cropHeight: 16,
+        cropWidth: 8,
+        cropHeight: 8,
 
-        offsetX: 16,
-        offsetY: 16,
+        offsetX: 8,
+        offsetY: 8,
 
         rowAmount: 16,
         columnAmount: 16, 
@@ -335,13 +347,13 @@ const unicodeSheet_NonlatinEU_Config = new unicodeCharacterSheet_Config({
     imageSheetConfig: new imagesheet_handler_Module.imageSheet_options({
         sheetImgSrc: _baseURL + "assets/textures/font/nonlatin_european.png",
         sheetWidth: 128,
-        sheetHeight: 500,
+        sheetHeight: 520,
         
-        cropWidth: 16,
-        cropHeight: 16,
+        cropWidth: 8,
+        cropHeight: 8,
 
-        offsetX: 16,
-        offsetY: 16,
+        offsetX: 8,
+        offsetY: 8,
 
         rowAmount: 16,
         columnAmount: 65, 
@@ -397,6 +409,8 @@ function setupCharJSONPage_CSS(options) {
             posY: result.images[i].posY,
             unicodeID: unicodeID_value,
             unicodeName: unicodeData_Module.getUnicodeDisplayName(unicodeID_value),
+
+            zoomFactor: options.zoomFactor,
 
             imageSheetConfig: options.imageSheetConfig,
         })
