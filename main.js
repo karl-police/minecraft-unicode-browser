@@ -362,6 +362,26 @@ const unicodeSheet_NonlatinEU_Config = new unicodeCharacterSheet_Config({
     })
 })
 
+const unicodeSheet_AsciiSGA_Config = new unicodeCharacterSheet_Config({
+    characterArray: minecraft_StoredData_UnicodeDefaultJSON.unicodeAscii.chars,
+    zoomFactor: 5,
+
+    imageSheetConfig: new imagesheet_handler_Module.imageSheet_options({
+        sheetImgSrc: _baseURL + "assets/textures/font/ascii_sga.png",
+        sheetWidth: 128,
+        sheetHeight: 128,
+        
+        cropWidth: 8,
+        cropHeight: 8,
+
+        offsetX: 8,
+        offsetY: 8,
+
+        rowAmount: 16,
+        columnAmount: 16, 
+    })
+})
+
 
 // Sets up a Char JSON page
 function setupCharJSONPage_CSS(options) {
