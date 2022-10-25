@@ -237,7 +237,7 @@ function setupNonlatinEUPage() {
     for (let i=1; i < Object.keys(result.images).length + 1; i++) {
         let unicodeID_value = new_nonlatinEUChars_array[i-1].codePointAt().toString("16").toUpperCase() // codePointAt
 
-        if (unicodeID_value.length == 4) {
+        if (unicodeID_value.length <= 4) {
             unicodeID_value = ("0000" + unicodeID_value).slice(-4)
         }
 
