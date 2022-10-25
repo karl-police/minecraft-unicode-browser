@@ -120,9 +120,44 @@ async function generateJSONTable() {
 
 
 
+var emojiStringToArray = function (str) {
+    var splitted_str = str.split("\n")
+    let arr = [];
+    let split_arr = []
+
+    /*for (let i=0; i < splitted_str.length; i++) {
+        split = splitted_str[i].split(/([\uD800-\uDBFF][\uDC00-\uDFFF])/);
+        for (var i_2=0; i_2<split.length; i_2++) {
+            char = split[i_2]
+            if (char !== "") {
+            arr.push(char);
+            }
+        }
+    
+        for (let i_2=0; i_2 < arr.length; i_2++) {
+            split_arr[i_2] = (arr[i_2].split(""))
+        }
+    }*/
+
+    var output = []
+
+    for (let i=0; i < splitted_str.length; i++) {
+        for (let char of splitted_str[i]) {
+            if (char != "") {
+                output.push(char)
+            }
+        }
+    }
+
+    console.log(output)
+
+
+    return arr;
+};
 
 //unicodeData_Module.createUnicodeEscapesMC()
-//this.createUnicodeEscapesMC = createUnicodeEscapesMC
+this.createUnicodeEscapesMC = createUnicodeEscapesMC
+this.emojiStringToArray = emojiStringToArray
 
 // Function to generate unicode escapes
 function createUnicodeEscapesMC(stringInput) {
@@ -156,6 +191,8 @@ function createUnicodeEscapesMC(stringInput) {
 
         resultCollections[i] = extractedStringCollection // insert into array
     }
+
+    console.log(resultCollections)
 
     for (let i=0; i < resultCollections.length; i++) {
         let resultCollectionBlock = resultCollections[i]
