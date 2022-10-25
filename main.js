@@ -175,7 +175,7 @@ function setupUnicodePageCSSImage(unicodePage_index) {
             imageSrc: "assets/textures/font/unicode_page_" + unicodePage_index + ".png",
             posX: result.images[i].posX,
             posY: result.images[i].posY,
-            unicodeID: unicodePage_index.toUpperCase() + unicodeHexValue,
+            unicodeID: unicodeID_value,
             unicodeName: unicodeData_Module.getUnicodeDisplayName(unicodeID_value),
             zoomFactor: 4,
 
