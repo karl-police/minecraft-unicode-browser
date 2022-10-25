@@ -343,6 +343,7 @@ const unicodeSheet_Ascii_Config = new unicodeCharacterSheet_Config({
 
 const unicodeSheet_NonlatinEU_Config = new unicodeCharacterSheet_Config({
     characterArray: minecraft_StoredData_UnicodeDefaultJSON.unicodeNonlatin_European.chars,
+    zoomFactor: 5,
 
     imageSheetConfig: new imagesheet_handler_Module.imageSheet_options({
         sheetImgSrc: _baseURL + "assets/textures/font/nonlatin_european.png",
